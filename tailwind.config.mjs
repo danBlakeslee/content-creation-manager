@@ -10,6 +10,8 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "topic-name": "#156082",
+        "topic-source": "#E97132"
       },
     },
   },

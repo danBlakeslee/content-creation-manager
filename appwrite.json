@@ -1,0 +1,459 @@
+{
+    "projectId": "contentcreationmanagement",
+    "projectName": "Content Creation Management",
+    "settings": {
+        "services": {
+            "account": true,
+            "avatars": true,
+            "databases": true,
+            "locale": true,
+            "health": true,
+            "storage": true,
+            "teams": true,
+            "users": true,
+            "functions": true,
+            "graphql": true,
+            "messaging": true
+        },
+        "auth": {
+            "methods": {
+                "jwt": true,
+                "phone": true,
+                "invites": true,
+                "anonymous": true,
+                "email-otp": true,
+                "magic-url": true,
+                "email-password": true
+            },
+            "security": {
+                "duration": 31536000,
+                "limit": 0,
+                "sessionsLimit": 10,
+                "passwordHistory": 0,
+                "passwordDictionary": false,
+                "personalDataCheck": false,
+                "sessionAlerts": false,
+                "mockNumbers": []
+            }
+        }
+    },
+    "databases": [
+        {
+            "$id": "contentcreationmanagement",
+            "name": "contentcreationmanagement",
+            "enabled": true
+        }
+    ],
+    "collections": [
+        {
+            "$id": "episode_type",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "contentcreationmanagement",
+            "name": "episode_type",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "episode_type_id",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 50,
+                    "default": null
+                },
+                {
+                    "key": "episode_type_name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 500,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "episode_status",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "contentcreationmanagement",
+            "name": "episode_status",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "episode_status_id",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 15,
+                    "default": null
+                },
+                {
+                    "key": "episode_status_name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 200,
+                    "default": null
+                },
+                {
+                    "key": "associated_color",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null
+                },
+                {
+                    "key": "text_color",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "maintenance_type",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "contentcreationmanagement",
+            "name": "maintenance_type",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "maintenance_type_id",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 50,
+                    "default": null
+                },
+                {
+                    "key": "maintenance_type_name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 500,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "episode",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "contentcreationmanagement",
+            "name": "episode",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "episode_number",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 10000,
+                    "default": null
+                },
+                {
+                    "key": "day_of_week",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 15,
+                    "default": null
+                },
+                {
+                    "key": "episode_type_number",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 10000,
+                    "default": null
+                },
+                {
+                    "key": "episode_name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 500,
+                    "default": null
+                },
+                {
+                    "key": "source",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 10000,
+                    "default": null
+                },
+                {
+                    "key": "youtube_name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 500,
+                    "default": null
+                },
+                {
+                    "key": "episode_type",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "episode_type",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "675b3a6c0037934949a6",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "episode_status",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "episode_status",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "675b3a85002f90014b7a",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "topic_subtype",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "contentcreationmanagement",
+            "name": "topic_subtype",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "topic_subtype_name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                },
+                {
+                    "key": "topic_subtype_id",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 10000,
+                    "default": null
+                },
+                {
+                    "key": "topicKingdom",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "topic_kingdom",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "677435c800125ef98fc0",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "topic_kingdom",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "contentcreationmanagement",
+            "name": "topic_kingdom",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "topic_kingdom_name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                },
+                {
+                    "key": "topic_kingdom_id",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 10000,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "topic",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "contentcreationmanagement",
+            "name": "topic",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "covered",
+                    "type": "boolean",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "episodeType",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "episode_type",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "677436d00019da686097",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "topic_name",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 5000,
+                    "default": null
+                },
+                {
+                    "key": "topicKingdom",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "topic_kingdom",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "677436f30002d381d568",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "topicSubtype",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "topic_subtype",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "6774370c0021d4b59ffd",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "topic_notes",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 5000,
+                    "default": null
+                },
+                {
+                    "key": "topicSource",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "topic_source",
+                    "relationType": "oneToMany",
+                    "twoWay": false,
+                    "twoWayKey": "67744f06001cb97217fc",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "topic_source",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "contentcreationmanagement",
+            "name": "topic_source",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "source_title",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                },
+                {
+                    "key": "source_content",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 10000,
+                    "default": null
+                },
+                {
+                    "key": "source_notes",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 5000,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        }
+    ]
+}
