@@ -13,7 +13,7 @@ pnpm dev
 # or
 bun dev
 ```
-
+This project uses Appwrite as the database. You will need to configure an environment variables file and connect your database to the application from that file.
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
