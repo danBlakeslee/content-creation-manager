@@ -1,15 +1,16 @@
-import allTopics from "../../mondayTestData.json";
+import { useTopics } from "@/app/context/topicContext";
 import DailyTopicSectionWrapper from "./DailyTopicSectionWrapper";
 
-const DailyTopicDisplay = ({ topicType }) => {
-  const allCoveredTopics = [...allTopics].filter(
-    (topic) => topic.covered && topic.episodeType === topicType
+const DailyTopicDisplay = () => {
+  const {topics} = useTopics();
+  const allCoveredTopics = [...topics].filter(
+    (topic) => topic.covered
   );
-  const uncoveredTopics = [...allTopics].filter(
-    (topic) => !topic.covered && topic.episodeType === topicType
+  const uncoveredTopics = [...topics].filter(
+    (topic) => !topic.covered
   );
   const getUniqueRecordAndSubtype = Array.from(
-    new Set([...uncoveredTopics].map((topic) => topic.topicSubtype))
+    new Set([...uncoveredTopics].map((topic) => topic?.topicSubtype?.name))
   );
 
   return (
@@ -28,9 +29,10 @@ const DailyTopicDisplay = ({ topicType }) => {
           key={index}
           subType={subtype}
           isEnigmatic={false}
-          topicData={[...allTopics].filter(
+          topicData={[...topics].filter(
             (topic) =>
-              topic.topicSubtype === subtype && topic.episodeType === topicType
+              !topic.covered &&
+              topic?.topicSubtype?.name === subtype
           )}
         />
       ))}

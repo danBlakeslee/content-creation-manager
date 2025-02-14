@@ -129,7 +129,7 @@ export const maintenanceTypes = {
   statusType: 2,
   maintenanceType: 3,
   topicKingdom: 4,
-  topicSubtype: 5
+  topicSubtype: 5,
 };
 
 export const daysOfTheWeek = [
@@ -198,6 +198,7 @@ export const statusTypeNames = [
 ];
 
 export const tabsConfig = {
+  sunday: [episodeTypesWithNames.entryLevelEnigmatics],
   monday: [
     episodeTypesWithNames.hauntedHallmarks,
     episodeTypesWithNames.spiritualSpeculations,
@@ -231,4 +232,16 @@ export const tabsConfig = {
     episodeTypesWithNames.mythologicalMicroLesson,
     episodeTypesWithNames.superstitiousSuppositions,
   ],
+};
+
+export const dayTabMapping = {
+  sunday: 0,
+  monday: 1,
+  tuesday: 2,
+};
+
+export const dayTabMappingReverse = {
+  0: "sunday",
+  1: "monday",
+  2: "tuesday",
 };

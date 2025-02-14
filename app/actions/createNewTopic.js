@@ -3,7 +3,8 @@ import { createAdminClient } from "@/config/appwrite";
 import { ID } from "node-appwrite";
 import { revalidatePath } from "next/cache";
 
-async function createNewTopic(previousState, formData) {
+async function createNewTopic(params, previousState, formData) {
+  // this is necessary because formData is not an object literal. Here I convert the data into an object literal.
   const formattedFormData = Array.from(formData.entries()).map(
     (keyValuePair) => {
       return { name: keyValuePair[0], value: keyValuePair[1] };
@@ -28,6 +29,22 @@ async function createNewTopic(previousState, formData) {
 
   calculateSourceTopicField(1);
 
+  function extractFieldValue(sourceFieldArray, fieldNamePiece) {
+    const foundField = sourceFieldArray?.find((field) =>
+      field.name.includes(fieldNamePiece)
+    );
+    return foundField?.value || "";
+  }
+
+  const formattedTopicSource = calculatedTopicSource?.map((source) => {
+    return {
+      source_title: extractFieldValue(source, "title"),
+      source_content: extractFieldValue(source, "content"),
+      source_notes: extractFieldValue(source, "notes"),
+      $id: ID.unique().toString(),
+    };
+  });
+
   const dataConfig = {
     covered: !!formData.get("covered") === "Yes",
     episodeType: formData.get("episode_type"),
@@ -35,49 +52,23 @@ async function createNewTopic(previousState, formData) {
     topicKingdom: formData.get("topic_kingdom"),
     topicSubtype: formData.get("topic_subtype"),
     topic_notes: formData.get("topic_notes"),
-    topicSource: calculatedTopicSource,
+    topicSource: formattedTopicSource,
   };
-
-  // THIS DATA CONFIG LET ME ADD THIS RECORD SUCCESSFULLY.
-  //   const dataConfig = {
-  //     covered: true,
-  //     episodeType: "2",
-  //     topic_name: "Test Topic",
-  //     topicKingdom: "1",
-  //     topicSubtype: "1",
-  //     topic_notes: "Test Notes.",
-  //     topicSource: [
-  //       {
-  //         source_title: "Personal Experience",
-  //         source_content:
-  //           "Can use my own EVP as an example. Not all instances are Random",
-  //         source_notes: "",
-  //         $id: ID.unique().toString(),
-  //       },
-  //       {
-  //         source_title: "Sightings S1, E2 Ghost Special 24:46",
-  //         source_content: "Direct Answer to Questions",
-  //         source_notes: "",
-  //         $id: ID.unique().toString(),
-  //       },
-  //     ],
-  //   };
 
   try {
     const { databases } = await createAdminClient();
-    // const newTopic = await databases.createDocument(
-    //   process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
-    //   process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_TOPIC,
-    //   ID.unique(),
-    //   dataConfig
-    // );
-
-    console.log(dataConfig);
+    const newTopic = await databases.createDocument(
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
+      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_TOPIC,
+      ID.unique(),
+      dataConfig
+    );
+    
+    revalidatePath(`/planning/topics/${params?.day}/${params?.subType}`, "layout");
     return {
       success: true,
     };
 
-    // revalidatePath("/planning/schedule", "layout");
   } catch (error) {
     console.log("Failed to create new topic", error, dataConfig);
     return {

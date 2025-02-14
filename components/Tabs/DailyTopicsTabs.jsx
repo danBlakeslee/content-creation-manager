@@ -6,6 +6,7 @@ import { useState } from "react";
 import CustomTabPanel from "./CustomTabPanel";
 import DailyTopicDisplay from "../TopicDisplay/DailyTopicDisplay";
 import NewTopicFormWrapper from "../FormWrappers/NewTopicFormWrapper";
+import { useRouter, useParams } from "next/navigation";
 
 
 
@@ -16,11 +17,14 @@ function getTabProps(index) {
   };
 }
 
-const DailyTopicsTabs = ({ subTabs }) => {
-  const [activeTab, setActiveTab] = useState(0);
+const DailyTopicsTabs = ({ subTabs, lowestIndex }) => {
+  const {day, subtype} = useParams();
+  const [activeTab, setActiveTab] = useState(parseInt(subtype, 10) || lowestIndex);
+  const router = useRouter();
 
   const changeTab = (e, newTab) => {
     setActiveTab(newTab);
+    router.push(`/planning/topics/${day}/${newTab}`, undefined, {shallow: true});
   };
 
   return (
@@ -33,7 +37,8 @@ const DailyTopicsTabs = ({ subTabs }) => {
                 key={index}
                 sx={{ color: "#156082", fontWeight: "Bold" }}
                 label={tab?.typeName}
-                {...getTabProps(index)}
+                value={tab?.typeId}
+                {...getTabProps(tab?.typeId)}
               />
             ))}
           </Tabs>
@@ -41,7 +46,7 @@ const DailyTopicsTabs = ({ subTabs }) => {
         <NewTopicFormWrapper />
         {subTabs?.map((tab, index) => (
           <CustomTabPanel key={index} activeTab={activeTab} index={index}>
-            <DailyTopicDisplay topicType={tab?.typeId} />
+            <DailyTopicDisplay />
           </CustomTabPanel>
         ))}
       </Box>

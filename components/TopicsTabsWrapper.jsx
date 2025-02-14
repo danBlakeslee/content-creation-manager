@@ -1,10 +1,10 @@
 import React from "react";
 import TopicsTabs from "./Tabs/TopicsTabs";
 
-const TopicsTabsWrapper = () => {
+const TopicsTabsWrapper = ({allTopics}) => {
   return (
     <>
-      <TopicsTabs />
+      <TopicsTabs allTopics={allTopics} />
     </>
   );
 };

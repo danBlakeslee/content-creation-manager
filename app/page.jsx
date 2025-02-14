@@ -13,7 +13,7 @@ export default async function Home() {
       />
       <SectionOrganizer
         title="Video Topics"
-        redirectLink={"/planning/topics"}
+        redirectLink={"/planning/topics/sunday"}
       />
       <SectionOrganizer
         title="Lookup Maintenance"

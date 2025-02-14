@@ -5,9 +5,11 @@ import { ID } from "node-appwrite";
 import { useMaintenance } from "@/app/context/maintenanceContext";
 import { FaPlus, FaX } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { useParams } from "next/navigation";
 
 const AddNewTopicForm = () => {
-  const [state, formAction] = useActionState(createNewTopic, {});
+  const {day, subtype} = useParams();
+  const [state, formAction] = useActionState(createNewTopic.bind(null, {day, subtype}), {});
   const { episodeTypes, statusTypes, topicKingdoms, topicSubtypes } =
     useMaintenance();
   const [sourceRows, setSourceRows] = useState([]);
@@ -29,6 +31,7 @@ const AddNewTopicForm = () => {
   const removeSourceRow = (sourceRow) => {
     setSourceRows(sourceRows?.filter((row) => row !== sourceRow));
   };
+
 
   return (
     <>
@@ -88,8 +91,7 @@ const AddNewTopicForm = () => {
               id="topic_notes"
               name="topic_notes"
               className="border rounded w-full py-2 px-3"
-              placeholder="Enter the Name of the topic"
-              required
+              placeholder="Enter notes about the topic"
             />
           </div>
 
