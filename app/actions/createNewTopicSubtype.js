@@ -1,5 +1,6 @@
 "use server";
 import { createAdminClient } from "@/config/appwrite";
+import { revalidatePath } from "next/cache";
 
 async function createNewTopicSubtype(previousState, formData) {
   try {
@@ -26,6 +27,7 @@ async function createNewTopicSubtype(previousState, formData) {
       }
     );
 
+    revalidatePath("/planning/maintenance");
     return {
       success: true,
     };

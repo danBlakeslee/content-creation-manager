@@ -2,13 +2,11 @@
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomTabPanel from "./CustomTabPanel";
 import DailyTopicDisplay from "../TopicDisplay/DailyTopicDisplay";
 import NewTopicFormWrapper from "../FormWrappers/NewTopicFormWrapper";
 import { useRouter, useParams } from "next/navigation";
-
-
 
 function getTabProps(index) {
   return {
@@ -18,19 +16,32 @@ function getTabProps(index) {
 }
 
 const DailyTopicsTabs = ({ subTabs, lowestIndex }) => {
-  const {day, subtype} = useParams();
-  const [activeTab, setActiveTab] = useState(parseInt(subtype, 10) || lowestIndex);
+  const { day, subtype } = useParams();
+  const [activeTab, setActiveTab] = useState(false);
+
+  useEffect(() => {
+      setActiveTab(parseInt(subtype, 10) || lowestIndex);
+  }, [subtype]);
+
   const router = useRouter();
 
   const changeTab = (e, newTab) => {
     setActiveTab(newTab);
-    router.push(`/planning/topics/${day}/${newTab}`, undefined, {shallow: true});
+    router.push(`/planning/topics/${day}/${newTab}`, undefined, {
+      shallow: true,
+    });
   };
 
   return (
     <>
       <Box sx={{ width: "100%", marginTop: "1.5rem" }}>
-        <Box sx={{ borderBottom: 2, borderColor: "#156082", marginBottom: "1.5rem" }}>
+        <Box
+          sx={{
+            borderBottom: 2,
+            borderColor: "#156082",
+            marginBottom: "1.5rem",
+          }}
+        >
           <Tabs value={activeTab} onChange={changeTab}>
             {subTabs?.map((tab, index) => (
               <Tab
@@ -45,7 +56,7 @@ const DailyTopicsTabs = ({ subTabs, lowestIndex }) => {
         </Box>
         <NewTopicFormWrapper />
         {subTabs?.map((tab, index) => (
-          <CustomTabPanel key={index} activeTab={activeTab} index={index}>
+          <CustomTabPanel key={index} activeTab={activeTab} index={tab?.typeId}>
             <DailyTopicDisplay />
           </CustomTabPanel>
         ))}

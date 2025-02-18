@@ -6,10 +6,14 @@ import { useMaintenance } from "@/app/context/maintenanceContext";
 import { FaPlus, FaX } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { useParams } from "next/navigation";
+import { tabsConfig } from "@/app/helpers/helperObjects";
 
 const AddNewTopicForm = () => {
-  const {day, subtype} = useParams();
-  const [state, formAction] = useActionState(createNewTopic.bind(null, {day, subtype}), {});
+  const { day, subtype } = useParams();
+  const [state, formAction] = useActionState(
+    createNewTopic.bind(null, { day, subtype }),
+    {}
+  );
   const { episodeTypes, statusTypes, topicKingdoms, topicSubtypes } =
     useMaintenance();
   const [sourceRows, setSourceRows] = useState([]);
@@ -28,10 +32,27 @@ const AddNewTopicForm = () => {
     setSourceRows([...sourceRows, ID.unique()]);
   };
 
+  const episodeTypeIdsByDay = tabsConfig[day]?.map(
+    (episodeType) => episodeType.typeId
+  );
+
+  const filteredTopicKingdoms = topicKingdoms?.filter((topicKingdom) =>
+    topicKingdom?.episodeType?.some((episodeType) =>
+      episodeTypeIdsByDay?.includes(episodeType?.episode_type_id)
+    )
+  );
+
+  const filteredTopicSubTypes = topicSubtypes?.filter((topicSubtype) =>
+    filteredTopicKingdoms?.some(
+      (topicKingdom) =>
+        topicSubtype?.topicKingdom?.topic_kingdom_id ===
+        topicKingdom?.topic_kingdom_id
+    )
+  );
+
   const removeSourceRow = (sourceRow) => {
     setSourceRows(sourceRows?.filter((row) => row !== sourceRow));
   };
-
 
   return (
     <>
@@ -138,7 +159,7 @@ const AddNewTopicForm = () => {
               <option key={123} value={0}>
                 Select Topic Kingdom
               </option>
-              {topicKingdoms?.map((topicKingdom) => (
+              {filteredTopicKingdoms?.map((topicKingdom) => (
                 <option
                   key={topicKingdom.topic_kingdom_id}
                   value={topicKingdom.topic_kingdom_id}
@@ -165,7 +186,7 @@ const AddNewTopicForm = () => {
               <option key={123} value={0}>
                 Select Topic Subtype
               </option>
-              {topicSubtypes?.map((topicSubtype) => (
+              {filteredTopicSubTypes?.map((topicSubtype) => (
                 <option
                   key={topicSubtype.topic_subtype_id}
                   value={topicSubtype.topic_subtype_id}

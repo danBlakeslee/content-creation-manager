@@ -18,7 +18,6 @@ const DailyTopicDisplay = () => {
       {allCoveredTopics?.length ? (
         <DailyTopicSectionWrapper
           subType={"Covered"}
-          isEnigmatic={false}
           topicData={allCoveredTopics}
         />
       ) : (
@@ -28,7 +27,6 @@ const DailyTopicDisplay = () => {
         <DailyTopicSectionWrapper
           key={index}
           subType={subtype}
-          isEnigmatic={false}
           topicData={[...topics].filter(
             (topic) =>
               !topic.covered &&

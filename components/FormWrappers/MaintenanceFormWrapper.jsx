@@ -9,6 +9,7 @@ import createNewMaintenanceType from "@/app/actions/createNewMaintenanceType";
 import createNewEpisodeType from "@/app/actions/createNewEpisodeType";
 import createNewTopicSubtype from "@/app/actions/createNewTopicSubtype";
 import AddNewTopicSubtypeForm from "../Forms/AddNewTopicSubtypeForm";
+import AddNewTopicKingdomForm from "../Forms/AddNewTopicKingdomForm";
 
 const MaintenanceFormWrapper = ({ allMaintenanceTypes }) => {
   const [maintenanceType, setMaintenanceType] = useState(null);
@@ -42,7 +43,7 @@ const MaintenanceFormWrapper = ({ allMaintenanceTypes }) => {
         />
       )}
       {maintenanceType === maintenanceTypes.topicKingdom && (
-        <CommonAddForm
+        <AddNewTopicKingdomForm
           saveAction={createNewTopicKingdom}
           maintenanceTypeName={"Topic Kingdom"}
           maintenanceTypeFormName={"topic_kingdom_name"}

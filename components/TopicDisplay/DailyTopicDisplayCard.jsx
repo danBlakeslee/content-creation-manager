@@ -34,10 +34,14 @@ const DailyTopicDisplayCard = ({ topicData }) => {
                     {source?.sourceTitle}
                   </div>
                   {source?.sourceContent?.length &&
-                    source?.sourceContent?.length < 100 && <p>-</p>}
-                  <div>{source?.sourceContent}</div>
+                  source?.sourceContent?.length < 100 ? (
+                    <p>-</p>
+                  ) : (
+                    ""
+                  )}
+                  <div>{source?.sourceContent || ""}</div>
                 </div>
-                <div className="italic">{source?.sourceNotes}</div>
+                <div className="italic">{source?.sourceNotes || ""}</div>
               </li>
             ))}
           </ul>
