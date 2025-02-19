@@ -4,7 +4,6 @@ import { createAdminClient } from "@/config/appwrite";
 async function getAllTopicSubtypes() {
   try {
     const { databases } = await createAdminClient();
-    // Fetch topic kingdoms
     const { documents: subTypes } = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
       process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_TOPIC_SUBTYPE

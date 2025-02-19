@@ -19,6 +19,10 @@ export default async function Home() {
         title="Lookup Maintenance"
         redirectLink={"/planning/maintenance"}
       />
+      <SectionOrganizer
+        title="Data Backup"
+        redirectLink={"/planning/backup"}
+      />
     </>
   );
 }

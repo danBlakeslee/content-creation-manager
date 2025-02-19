@@ -71,16 +71,16 @@ const TopicsTabs = ({ allTopics }) => {
                 <DailyTopicContainer subTabs={tabsConfig?.wednesday} />
               </CustomTabPanel>
               <CustomTabPanel activeTab={activeTab} index={4}>
-                Thursday Strange Phenomena Topics
+                <DailyTopicContainer subTabs={tabsConfig?.thursday} />
               </CustomTabPanel>
               <CustomTabPanel activeTab={activeTab} index={5}>
-                Friday Fortean Topics
+                <DailyTopicContainer subTabs={tabsConfig?.friday} />
               </CustomTabPanel>
               <CustomTabPanel activeTab={activeTab} index={6}>
-                Saturday MLSU Topics
+              <DailyTopicContainer subTabs={tabsConfig?.saturday} />
               </CustomTabPanel>
               <CustomTabPanel activeTab={activeTab} index={7}>
-                Erstwhile Enigmas
+              <DailyTopicContainer subTabs={tabsConfig?.erstwhile} />
               </CustomTabPanel>
             </TopicsSubtabWrapper>
           </TopicsProvider>

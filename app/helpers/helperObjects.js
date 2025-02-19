@@ -25,6 +25,105 @@ export const episodeTypes = {
   other: 24,
 };
 
+export const episodeTypeDataArray = [
+  {
+    typeName: "Entry Level Enigmatics",
+    typeId: 1,
+  },
+  {
+    typeName: "Haunted Hallmarks",
+    typeId: 2,
+  },
+  {
+    typeName: "Spiritual Speculations",
+    typeId: 3,
+  },
+  {
+    typeName: "Spectral Story",
+    typeId: 4,
+  },
+  {
+    typeName: "Holy Hallmarks",
+    typeId: 5,
+  },
+  {
+    typeName: "Miraculous Memoirs",
+    typeId: 6,
+  },
+  {
+    typeName: "Alien Aspects",
+    typeId: 7,
+  },
+  {
+    typeName: "Extraterrestrial Extrapolations",
+    typeId: 8,
+  },
+  {
+    typeName: "Alien Anecdote",
+    typeId: 9,
+  },
+  {
+    typeName: "Cryptid Characteristics",
+    typeId: 10,
+  },
+  {
+    typeName: "Cryptid Conjecture",
+    typeId: 11,
+  },
+  {
+    typeName: "Erstwhile Enigmas",
+    typeId: 12,
+  },
+  {
+    typeName: "Cryptozoological Chronicle",
+    typeId: 13,
+  },
+  {
+    typeName: "Anomalous Accoutrements",
+    typeId: 14,
+  },
+  {
+    typeName: "Weird Wonderment",
+    typeId: 15,
+  },
+  {
+    typeName: "Strange Situation",
+    typeId: 16,
+  },
+  {
+    typeName: "Fortean Fritter",
+    typeId: 17,
+  },
+  {
+    typeName: "Highly Strange Hypothesis",
+    typeId: 18,
+  },
+  {
+    typeName: "Fringe File",
+    typeId: 19,
+  },
+  {
+    typeName: "Superstitious Suppositions",
+    typeId: 20,
+  },
+  {
+    typeName: "Urban Legendary Lore",
+    typeId: 21,
+  },
+  {
+    typeName: "Legendary Lore",
+    typeId: 22,
+  },
+  {
+    typeName: "Mythological Micro Lesson",
+    typeId: 23,
+  },
+  {
+    typeName: "Other",
+    typeId: 24,
+  },
+];
+
 export const episodeTypesWithNames = {
   entryLevelEnigmatics: {
     typeName: "Entry Level Enigmatics",
@@ -130,6 +229,7 @@ export const maintenanceTypes = {
   maintenanceType: 3,
   topicKingdom: 4,
   topicSubtype: 5,
+  dataBackup: 6
 };
 
 export const daysOfTheWeek = [
@@ -232,6 +332,9 @@ export const tabsConfig = {
     episodeTypesWithNames.mythologicalMicroLesson,
     episodeTypesWithNames.superstitiousSuppositions,
   ],
+  erstwhile: [
+    episodeTypesWithNames.erstwhileEnigmas
+  ]
 };
 
 export const dayTabMapping = {
@@ -242,7 +345,7 @@ export const dayTabMapping = {
   thursday: 4,
   friday: 5,
   saturday: 6,
-  erstwhile: 7
+  erstwhile: 7,
 };
 
 export const dayTabMappingReverse = {
@@ -253,5 +356,5 @@ export const dayTabMappingReverse = {
   4: "thursday",
   5: "friday",
   6: "saturday",
-  7: "erstwhile"
+  7: "erstwhile",
 };

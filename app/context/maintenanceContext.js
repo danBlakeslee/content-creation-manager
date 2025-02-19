@@ -3,6 +3,7 @@ import getAllEpisodeTypes from "../actions/getAllEpisodeTypes";
 import getAllStatusTypes from "../actions/getAllStatusTypes";
 import getAllTopicKingdoms from "../actions/getAllTopicKingdoms";
 import getAllTopicSubtypes from "../actions/getAllTopicSubtypes";
+import getAllDataBackupTypes from "../actions/getAllDataBackupTypes";
 
 
 const MaintenanceContext = createContext();
@@ -12,6 +13,7 @@ export const MaintenanceProvider = ({ children }) => {
   const [statusTypes, setStatusTypes] = useState([]);
   const [topicKingdoms, setTopicKingdoms] = useState([]);
   const [topicSubtypes, setTopicSubtypes] = useState([]);
+  const [dataBackupTypes, setDataBackupTypes] = useState([]);
 
   useEffect(() => {
     const fetchEpisodeTypes = async () => {
@@ -34,10 +36,16 @@ export const MaintenanceProvider = ({ children }) => {
       setTopicSubtypes(topicSubtypes);
     }
 
+    const fetchDataBackupTypes = async () => {
+      const dataBackupTypes = await getAllDataBackupTypes();
+      setDataBackupTypes(dataBackupTypes);
+    }
+
     fetchEpisodeTypes();
     fetchStatusTypes();
     fetchTopicKingdoms();
     fetchTopicSubtypes();
+    fetchDataBackupTypes();
   }, []);
 
   return (
@@ -46,7 +54,8 @@ export const MaintenanceProvider = ({ children }) => {
         episodeTypes,
         statusTypes,
         topicKingdoms,
-        topicSubtypes
+        topicSubtypes,
+        dataBackupTypes
       }}
     >
       {children}

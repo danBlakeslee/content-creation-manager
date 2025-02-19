@@ -10,6 +10,7 @@ import createNewEpisodeType from "@/app/actions/createNewEpisodeType";
 import createNewTopicSubtype from "@/app/actions/createNewTopicSubtype";
 import AddNewTopicSubtypeForm from "../Forms/AddNewTopicSubtypeForm";
 import AddNewTopicKingdomForm from "../Forms/AddNewTopicKingdomForm";
+import createNewDataBackupType from "@/app/actions/createNewDataBackupType";
 
 const MaintenanceFormWrapper = ({ allMaintenanceTypes }) => {
   const [maintenanceType, setMaintenanceType] = useState(null);
@@ -32,6 +33,13 @@ const MaintenanceFormWrapper = ({ allMaintenanceTypes }) => {
           saveAction={createNewEpisodeType}
           maintenanceTypeName={"Episode Type"}
           maintenanceTypeFormName={"episode_name"}
+        />
+      )}
+      {maintenanceType === maintenanceTypes.dataBackup && (
+        <CommonAddForm
+          saveAction={createNewDataBackupType}
+          maintenanceTypeName={"Data Backup"}
+          maintenanceTypeFormName={"data_backup_name"}
         />
       )}
       {maintenanceType === maintenanceTypes.statusType && <AddStatusTypeForm />}

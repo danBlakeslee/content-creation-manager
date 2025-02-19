@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useActionState } from "react";
 import { toast } from "react-toastify";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -8,13 +8,19 @@ import { useMaintenance } from "@/app/context/maintenanceContext";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
 const AddNewTopicKingdomForm = ({
   saveAction,
   maintenanceTypeName,
   maintenanceTypeFormName,
 }) => {
-  const [state, formAction] = useActionState(saveAction, {});
+  const [selectedEpisodeTypes, setSelectedEpisodeTypes] = useState([]);
+  const [state, formAction] = useActionState(
+    saveAction.bind(null, selectedEpisodeTypes),
+    {}
+  );
   const { episodeTypes } = useMaintenance();
 
   useEffect(() => {
@@ -27,10 +33,18 @@ const AddNewTopicKingdomForm = ({
     }
   }, [state]);
 
+  const updateSelectedEpisodeTypes = (e) => {
+    const selection = e?.target?.value;
+
+    setSelectedEpisodeTypes(
+      typeof selection === "string" ? selection?.split(",") : selection
+    );
+  };
+
   return (
     <>
       <div className="bg-white shadow-lg rounded-lg p-6 w-6/12">
-        <form action={formAction}>
+        <form action={formAction} onSubmit={() => setSelectedEpisodeTypes([])}>
           <div className="mb-4">
             <label
               htmlFor={maintenanceTypeFormName}
@@ -46,28 +60,32 @@ const AddNewTopicKingdomForm = ({
               placeholder={`Enter the Name of the ${maintenanceTypeName}`}
               required
             />
-            <Select
-              id={"episode_type_id"}
-              multiple
-              value={[]}
-              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-              renderValue={(selected) => (
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
-                </Box>
-              )}
-            >
-              {episodeTypes?.map((episodeType) => (
-                <MenuItem
-                  key={episodeType?.episode_type_name}
-                  value={episodeType?.episode_type_id}
-                >
-                  {episodeType?.episode_type_name}
-                </MenuItem>
-              ))}
-            </Select>
+            <FormControl sx={{ mt: 3, width: "100%" }}>
+              <InputLabel>Episode Types</InputLabel>
+              <Select
+                id={"episode_type_id"}
+                multiple
+                value={selectedEpisodeTypes}
+                onChange={updateSelectedEpisodeTypes}
+                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                renderValue={(selected) => (
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                    {selected.map((value) => (
+                      <Chip key={value} label={value} />
+                    ))}
+                  </Box>
+                )}
+              >
+                {[...episodeTypes]?.map((episodeType) => (
+                  <MenuItem
+                    key={episodeType?.episode_type_id}
+                    value={episodeType?.episode_type_name}
+                  >
+                    {episodeType?.episode_type_name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
 
           <div className="flex flex-col gap-5">
