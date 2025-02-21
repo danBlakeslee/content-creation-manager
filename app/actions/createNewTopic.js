@@ -46,7 +46,7 @@ async function createNewTopic(params, previousState, formData) {
   });
 
   const dataConfig = {
-    covered: !!formData.get("covered") === "Yes",
+    covered: !!(formData.get("covered") === "Yes"),
     episodeType: formData.get("episode_type"),
     topic_name: formData.get("topic_name"),
     topicKingdom: formData.get("topic_kingdom"),

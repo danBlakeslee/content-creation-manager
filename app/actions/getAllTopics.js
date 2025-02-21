@@ -5,10 +5,11 @@ import { Query } from "node-appwrite";
 const getAllTopics = async () => {
   try {
     const { databases } = await createAdminClient();
-    // Fetch planned epsisodes
+    // Fetch all topics
     const { documents: topics } = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
-      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_TOPIC
+      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_TOPIC,
+      [Query.limit(1000)]
     );
 
     function formatTopicSources(sources) {

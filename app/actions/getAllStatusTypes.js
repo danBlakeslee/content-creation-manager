@@ -1,5 +1,6 @@
 "use server";
 import { createAdminClient } from "@/config/appwrite";
+import { Query } from "node-appwrite";
 
 async function getAllStatusTypes() {
   try {
@@ -7,7 +8,8 @@ async function getAllStatusTypes() {
     // Fetch status types
     const { documents: statusTypes } = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
-      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_STATUS_TYPE
+      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_STATUS_TYPE,
+      [Query.limit(25)]
     );
     return statusTypes;
   } catch (error) {

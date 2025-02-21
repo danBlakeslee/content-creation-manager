@@ -37,8 +37,8 @@ const AddNewTopicForm = () => {
   );
 
   const filteredTopicKingdoms = topicKingdoms?.filter((topicKingdom) =>
-    topicKingdom?.episodeType?.some((episodeType) =>
-      episodeTypeIdsByDay?.includes(episodeType?.episode_type_id)
+    topicKingdom?.episodeType?.some(
+      (episodeType) => episodeType?.episode_type_id === parseInt(subtype, 10)
     )
   );
 

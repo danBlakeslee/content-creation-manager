@@ -24,7 +24,7 @@ const DailyTopicDisplayCard = ({ topicData }) => {
             {topicData?.topicSource?.map((source, index) => (
               <li className="mb-3" key={index}>
                 <div
-                  className={`bg-white ${
+                  className={`bg-white whitespace-pre-wrap ${
                     source?.sourceContent?.length &&
                     source?.sourceContent?.length < 100 &&
                     "flex gap-4"
@@ -39,7 +39,9 @@ const DailyTopicDisplayCard = ({ topicData }) => {
                   ) : (
                     ""
                   )}
-                  <div>{source?.sourceContent || ""}</div>
+                  <div className="whitespace-pre-wrap">
+                    {source?.sourceContent || ""}
+                  </div>
                 </div>
                 <div className="italic">{source?.sourceNotes || ""}</div>
               </li>

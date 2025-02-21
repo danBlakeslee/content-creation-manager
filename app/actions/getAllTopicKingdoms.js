@@ -1,5 +1,6 @@
 "use server";
 import { createAdminClient } from "@/config/appwrite";
+import { Query } from "node-appwrite";
 
 async function getAllTopicKingdoms() {
   try {
@@ -7,7 +8,8 @@ async function getAllTopicKingdoms() {
     // Fetch topic kingdoms
     const { documents: statusTypes } = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
-      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_TOPIC_KINGDOM
+      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_TOPIC_KINGDOM,
+      [Query.limit(15)]
     );
     return statusTypes;
   } catch (error) {

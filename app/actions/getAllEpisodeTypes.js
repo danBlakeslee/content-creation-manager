@@ -1,5 +1,6 @@
 "use server";
 import { createAdminClient } from "@/config/appwrite";
+import { Query } from "node-appwrite";
 
 async function getAllEpisodeTypes() {
   try {
@@ -7,7 +8,8 @@ async function getAllEpisodeTypes() {
     // Fetch episode types
     const { documents: episodeTypes } = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
-      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_EPISODE_TYPE
+      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_EPISODE_TYPE,
+      [Query.limit(50)]
     );
     return episodeTypes;
   } catch (error) {

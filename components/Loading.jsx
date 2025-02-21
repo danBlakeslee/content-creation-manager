@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Loading = () => {
+const Loading = ({customName}) => {
   return (
-    <div>...Loading</div>
+    <div>{`${customName || "...Loading"}`}</div>
   )
 }
 
